@@ -49,10 +49,11 @@ public class BookController {
     	    }
     	    break;
     	case 4:
-    		System.out.println("Enter Author of book that you to want to search");    		
-    	    String Author1=sc.next();
+    		
     	    try
     	    {
+    	    System.out.println("Enter Author of book that you to want to search");    		
+        	String Author1=sc.next();
     	    manage.searchByAuthor(Author1);
     	    }
     	    catch(NotFoundException1 e)
@@ -61,12 +62,24 @@ public class BookController {
     	    }
     	    break;
     	case 5:
+    		try {
     	    manage.displayAllBooks();
+    		}
+    		catch(NotFoundException1 e)
+    	    {
+    	    	System.out.println("Enter Author book is not present in the system");
+    	    }
     		break;
     	case 6:
+    		try {
     		System.out.println("Enter genre of book that you to want to display");    		
     	    String genre=sc.next();
     	    manage.displayBooksByGenere(genre);
+    		}
+    		catch(NotFoundException1 e)
+    	    {
+    	    	System.out.println("Enter Author book is not present in the system");
+    	    }
     	    break;
     	default:
     		System.out.println("Invalid choice. Please try again");

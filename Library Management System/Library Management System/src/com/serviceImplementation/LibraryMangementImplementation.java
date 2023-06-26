@@ -43,38 +43,64 @@ public class LibraryMangementImplementation implements BookManagement {
 
 	@Override
 	public void removeBook(int id){
-
+        
+		if (bl.isEmpty()) 
+		{
+			throw new NotFoundException1("List is empty");
+		}
+		boolean isPresent=false;
 		Iterator<Book> i=bl.iterator();
 		while(i.hasNext())
 		{
-			if(bl.contains(id))
-			{
 			  Book s1=i.next();
+			  if(s1.getId()==id)
+			  {
+				  isPresent=true;
+				
+			  }
+		}
+		if(isPresent==true)
+		{
+			Iterator<Book> it=bl.iterator();
+			Book s1=it.next();
 			  if(s1.getId()==id)
 			  {
 				bl.remove(s1);
 				System.out.println("Student remove from system");
-				return;
-			  }
-			}
-			else
-			{
-				throw new NotFoundException1();
-			}
-			
+				
+			  }	
 		}
-		
+		else
+		{
+			throw new NotFoundException1();
+		}
+			
 	}
-
+	
 	@Override
 	public void searchTitle(String title) {
+		if (bl.isEmpty()) 
+		{
+			throw new NotFoundException1("List is empty");
+		}
+		boolean isPresent=false;
 		System.out.println("bookId\t\tTitle\t\tAuthorname\tGenre\t\tYear\t\tQuantity");
 		Iterator<Book>itr=bl.iterator();
 		while(itr.hasNext())
 		{
-			if(bl.contains(title))
-			{
 			  Book b=itr.next();
+			  String c1=title.toLowerCase();
+			  String c2=b.getTitle().toLowerCase();
+			  int l=c1.length();
+			  if(c2.substring(0,l/2).equals(c1.substring(0, l/2)))
+			   {
+				isPresent=true;
+			   }
+		}
+		if(isPresent==true)	
+		{
+			  Iterator<Book>itr1=bl.iterator();
+			  Book b=itr1.next();
 			  String c1=title.toLowerCase();
 			  String c2=b.getTitle().toLowerCase();
 			  int l=c1.length();
@@ -82,43 +108,60 @@ public class LibraryMangementImplementation implements BookManagement {
 			   {
 				 System.out.println(b.getId()+"\t\t"+b.getTitle()+"\t\t"+b.getAuthor()+"\t\t"+b.getGenre()+"\t\t"+b.getYear()+"\t\t"+b.getQuanity());
 			   }
-			}
-			else
-			{
-				throw new NotFoundException1();
-			}
+		}
+		else
+		{
+			throw new NotFoundException1("Booke title is not present in system");
 		}
 		
 	}
 
 	@Override
 	public void searchByAuthor(String author){
+		if (bl.isEmpty()) 
+		{
+			throw new NotFoundException1("List is empty");
+		}
+		boolean isPresent=false;
 		System.out.println("bookId\t\tTitle\t\tAuthorname\tGenre\t\tYear\t\tQuantity");
 		Iterator<Book>itr=bl.iterator();
 		while(itr.hasNext())
 		{
-			if(bl.contains(author))
-			{
 			  Book b=itr.next();
 			  String c1=author.toLowerCase();
 			  String c2=b.getAuthor().toLowerCase();
 			  int l=c1.length();
 			  if(c2.substring(0,l/2).equals(c1.substring(0, l/2)))
 			  {
-				 System.out.println(b.getId()+"\t\t"+b.getTitle()+"\t\t"+b.getAuthor()+"\t\t"+b.getGenre()+"\t\t"+b.getYear()+"\t\t"+b.getQuanity());
+				 isPresent=true;
+			  }	
+		}
+		
+		if(isPresent==true)
+		{
+			  Iterator<Book>itr1=bl.iterator();
+			  Book b1=itr1.next();
+			  String c1=author.toLowerCase();
+			  String c2=b1.getAuthor().toLowerCase();
+			  int l=c1.length();
+			  if(c2.substring(0,l/2).equals(c1.substring(0, l/2)))
+			  {
+				  System.out.println(b1.getId()+"\t\t"+b1.getTitle()+"\t\t"+b1.getAuthor()+"\t\t"+b1.getGenre()+"\t\t"+b1.getYear()+"\t\t"+b1.getQuanity());
 			  }
-			}
-			else
-			{
-				throw new NotFoundException1() ;
-			}
-			
+		}
+		else
+		{
+			throw new NotFoundException1("Author name is not present in system");
 		}
 		
 	}
 
 	@Override
 	public void displayAllBooks() {
+		if (bl.isEmpty()) 
+		{
+			throw new NotFoundException1("List is empty");
+		}
 		System.out.println("bookId\t\tTitle\t\tAuthorname\tGenre\t\tYear\t\tQuantity");
 		Iterator<Book> itr=bl.iterator();
 	   while(itr.hasNext())
@@ -130,6 +173,10 @@ public class LibraryMangementImplementation implements BookManagement {
 
 	@Override
 	public void displayBooksByGenere(String genre) {
+		if (bl.isEmpty()) 
+		{
+			throw new NotFoundException1("List is empty");
+		}
 		HashMap<String, ArrayList<Book>> hs=new HashMap<>();
 		Iterator<Book> itr=bl.iterator();
 		

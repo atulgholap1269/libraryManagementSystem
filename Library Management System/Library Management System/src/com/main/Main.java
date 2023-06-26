@@ -53,13 +53,15 @@ public class Main {
        	    option =sc.next();
        	  }
 		  while(option.equalsIgnoreCase("yes"));
-       	}
+		System.out.println("Thank you for using our system...");
+		}
+		
        	catch(InputMismatchException e)
        	{
        		System.out.println("enter input not match with datatype of attribute");
        		return;
        	}
-		sc.next();
+		sc.close();
 	}
 	
 }
